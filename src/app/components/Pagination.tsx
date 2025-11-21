@@ -9,7 +9,6 @@ interface PaginationProps {
   onPageChange: (page: number) => void;
   itemsPerPage: number;
   totalItems: number;
-  onItemsPerPageChange?: (itemsPerPage: number) => void;
 }
 
 const Pagination: React.FC<PaginationProps> = ({
@@ -18,7 +17,6 @@ const Pagination: React.FC<PaginationProps> = ({
   onPageChange,
   itemsPerPage,
   totalItems,
-  onItemsPerPageChange,
 }) => {
   // Calculate range of items being displayed
   const startItem = (currentPage - 1) * itemsPerPage + 1;
@@ -82,11 +80,10 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${
-            currentPage === 1
+          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${currentPage === 1
               ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
               : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 cursor-pointer'
-          }`}
+            }`}
           aria-label="Previous page"
         >
           Previous
@@ -101,11 +98,10 @@ const Pagination: React.FC<PaginationProps> = ({
               ) : (
                 <button
                   onClick={() => onPageChange(page as number)}
-                  className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors cursor-pointer ${
-                    currentPage === page
+                  className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors cursor-pointer ${currentPage === page
                       ? 'bg-blue-600 text-white border-blue-600'
                       : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400'
-                  }`}
+                    }`}
                   aria-label={`Go to page ${page}`}
                   aria-current={currentPage === page ? 'page' : undefined}
                 >
@@ -120,11 +116,10 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${
-            currentPage === totalPages
+          className={`px-3 py-2 rounded-lg border text-sm font-medium transition-colors ${currentPage === totalPages
               ? 'bg-gray-100 text-gray-400 border-gray-200 cursor-not-allowed'
               : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 hover:border-gray-400 cursor-pointer'
-          }`}
+            }`}
           aria-label="Next page"
         >
           Next
@@ -136,7 +131,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <span>Items per page:</span>
         <select
           value={itemsPerPage}
-          onChange={(e) => {
+          onChange={() => {
             // Reset to page 1 when changing items per page
             onPageChange(1);
             // The parent component should handle the itemsPerPage change

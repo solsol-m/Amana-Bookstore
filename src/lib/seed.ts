@@ -65,7 +65,7 @@ export async function seedDatabase() {
                 carts: insertedCarts.length,
             },
         };
-    } catch (error: any) {
+    } catch (error) {
         console.error('❌ Error seeding database:', error);
         throw error;
     }

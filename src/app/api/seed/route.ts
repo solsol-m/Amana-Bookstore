@@ -1,5 +1,5 @@
 // src/app/api/seed/route.ts
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { seedDatabase } from '@/lib/seed';
 
 /**
@@ -7,7 +7,7 @@ import { seedDatabase } from '@/lib/seed';
  * Seeds the database with data from JSON files
  * WARNING: This will clear all existing data and replace it with data from JSON files
  */
-export async function GET(request: NextRequest) {
+export async function GET() {
     try {
         // Optional: Add authentication check here to prevent unauthorized seeding
         // For development purposes, we'll allow it without auth
@@ -22,12 +22,13 @@ export async function GET(request: NextRequest) {
             stats: result.stats,
         }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error in seed API route:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return NextResponse.json({
             success: false,
             error: 'Failed to seed database',
-            message: error.message,
+            message: errorMessage,
         }, { status: 500 });
     }
 }
@@ -36,6 +37,6 @@ export async function GET(request: NextRequest) {
  * POST /api/seed
  * Alternative method to seed the database
  */
-export async function POST(request: NextRequest) {
-    return GET(request);
+export async function POST() {
+    return GET();
 }

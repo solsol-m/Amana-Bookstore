@@ -35,12 +35,13 @@ export async function GET(
             data: book,
         }, { status: 200 });
 
-    } catch (error: any) {
+    } catch (error) {
         console.error('Error fetching book:', error);
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
         return NextResponse.json({
             success: false,
             error: 'Failed to fetch book',
-            message: error.message,
+            message: errorMessage,
         }, { status: 500 });
     }
 }
