@@ -9,12 +9,12 @@ import Book from '@/lib/models/Book';
  */
 export async function GET(
     request: NextRequest,
-    { params }: { params: Promise<{ id: string }> }
+    context: { params: Promise<{ id: string }> }
 ) {
     try {
         await connectDB();
 
-        const { id } = await params;
+        const { id } = await context.params;
 
         // Try to find by MongoDB _id first, then by custom id field
         let book = await Book.findById(id).lean();
